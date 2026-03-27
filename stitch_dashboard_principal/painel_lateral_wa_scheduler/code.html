@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-container": "#d9ffef",
+              "surface-container": "#172127",
+              "secondary-fixed": "#92f5d9",
+              "tertiary": "#bcc8cf",
+              "primary-fixed-dim": "#59dcb5",
+              "on-primary-fixed-variant": "#00513e",
+              "primary-container": "#008064",
+              "surface-bright": "#303b41",
+              "surface-container-low": "#131d23",
+              "secondary-container": "#03816a",
+              "background": "#0a151a",
+              "on-primary": "#00382a",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#e1fff3",
+              "inverse-on-surface": "#283238",
+              "surface-container-high": "#212b32",
+              "outline-variant": "#3e4945",
+              "surface-tint": "#59dcb5",
+              "surface-variant": "#2c363d",
+              "on-tertiary": "#273238",
+              "tertiary-fixed": "#d8e4ec",
+              "error-container": "#93000a",
+              "on-secondary-fixed-variant": "#005141",
+              "surface-dim": "#0a151a",
+              "on-error": "#690005",
+              "on-background": "#d9e4ec",
+              "on-tertiary-fixed-variant": "#3d484e",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#bcc8cf",
+              "on-secondary-fixed": "#002019",
+              "primary": "#59dcb5",
+              "tertiary-container": "#677379",
+              "on-primary-fixed": "#002117",
+              "secondary": "#76d8bd",
+              "surface-container-lowest": "#060f15",
+              "on-surface-variant": "#bdc9c4",
+              "on-surface": "#d9e4ec"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-[#0a151a] text-on-surface antialiased overflow-hidden h-screen flex justify-end">
+<!-- Sidebar Container -->
+<aside class="w-[400px] h-full bg-[#111B21] flex flex-col shadow-[-8px_0px_24px_rgba(0,0,0,0.5)] z-50 relative border-l border-outline-variant/10">
+<!-- TopAppBar -->
+<header class="bg-[#008069] text-white font-inter font-bold text-sm tracking-tight docked full-width top-0 h-[56px] shadow-lg shadow-[#0a151a]/40 flex items-center justify-between px-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white" data-icon="schedule">schedule</span>
+<h1 class="text-lg font-bold text-white">WA Scheduler</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-white/10 transition-colors duration-200 Active: scale-95 transition-transform rounded-full">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="p-2 hover:bg-white/10 transition-colors duration-200 Active: scale-95 transition-transform rounded-full">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+</header>
+<!-- Navigation Tabs (SideNavBar) -->
+<nav class="flex flex-col w-full bg-[#0a151a]">
+<div class="px-4 py-4">
+<h2 class="text-xl font-black text-[#e9edef]">WA Scheduler</h2>
+<p class="text-[0.875rem] text-[#8696a0]">Mensagens Programadas</p>
+</div>
+<div class="flex border-b border-outline-variant/20 px-4 gap-6">
+<!-- Active Tab -->
+<button class="text-white border-b-2 border-[#00a884] pb-2 font-bold text-[0.875rem] flex items-center gap-2 transition-all duration-300">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span>
+                    Ativos
+                </button>
+<button class="text-[#8696a0] pb-2 text-[0.875rem] hover:text-[#e9edef] transition-all duration-300 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="pause">pause</span>
+                    Pausados
+                </button>
+<button class="text-[#8696a0] pb-2 text-[0.875rem] hover:text-[#e9edef] transition-all duration-300 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="done_all">done_all</span>
+                    Concluídos
+                </button>
+</div>
+</nav>
+<!-- Main Content Canvas (Scrollable) -->
+<main class="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar">
+<!-- Card Item 1: Active -->
+<div class="bg-[#1F2C34] rounded-lg p-[12px] hover:bg-[#2A3942] transition-all duration-300 group cursor-pointer relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-sm">JS</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-white font-medium text-[14px] truncate pr-16">João Silva</h3>
+<span class="bg-[#00A884]/20 text-[#00A884] text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider absolute right-3 top-3">Ativo</span>
+</div>
+<p class="text-[#8696A0] text-[12px] mt-0.5">Próximo: Hoje, 14:30</p>
+<!-- Progress Section -->
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] text-[#8696A0]">Progresso: 8/12</span>
+<span class="text-[10px] text-[#8696A0]">66%</span>
+</div>
+<div class="w-full bg-background h-1 rounded-full overflow-hidden">
+<div class="bg-[#00A884] h-full w-2/3"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Item 2: Paused -->
+<div class="bg-[#1F2C34] rounded-lg p-[12px] hover:bg-[#2A3942] transition-all duration-300 group cursor-pointer relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-sm">MC</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-white font-medium text-[14px] truncate pr-16">Maria Clara</h3>
+<span class="bg-[#F0AD4E]/20 text-[#F0AD4E] text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider absolute right-3 top-3">Pausado</span>
+</div>
+<p class="text-[#8696A0] text-[12px] mt-0.5">Pausado em: 10 Out, 09:15</p>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] text-[#8696A0]">Progresso: 2/5</span>
+<span class="text-[10px] text-[#8696A0]">40%</span>
+</div>
+<div class="w-full bg-background h-1 rounded-full overflow-hidden">
+<div class="bg-[#F0AD4E] h-full w-[40%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Item 3: Completed -->
+<div class="bg-[#1F2C34] rounded-lg p-[12px] hover:bg-[#2A3942] transition-all duration-300 group cursor-pointer relative overflow-hidden">
+<div class="flex items-start gap-3 opacity-80">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-sm">RL</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-white font-medium text-[14px] truncate pr-16">Ricardo Leme</h3>
+<span class="bg-[#8696A0]/20 text-[#8696A0] text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider absolute right-3 top-3">Concluído</span>
+</div>
+<p class="text-[#8696A0] text-[12px] mt-0.5">Finalizado: Ontem, 18:00</p>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] text-[#8696A0]">Progresso: 10/10</span>
+<span class="text-[10px] text-[#8696A0]">100%</span>
+</div>
+<div class="w-full bg-background h-1 rounded-full overflow-hidden">
+<div class="bg-[#8696A0] h-full w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Item 4: Active -->
+<div class="bg-[#1F2C34] rounded-lg p-[12px] hover:bg-[#2A3942] transition-all duration-300 group cursor-pointer relative overflow-hidden">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-[#008069] flex items-center justify-center shrink-0">
+<span class="text-white font-bold text-sm">AF</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-white font-medium text-[14px] truncate pr-16">Ana Ferreira</h3>
+<span class="bg-[#00A884]/20 text-[#00A884] text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider absolute right-3 top-3">Ativo</span>
+</div>
+<p class="text-[#8696A0] text-[12px] mt-0.5">Próximo: Amanhã, 08:00</p>
+<div class="mt-3">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] text-[#8696A0]">Progresso: 1/20</span>
+<span class="text-[10px] text-[#8696A0]">5%</span>
+</div>
+<div class="w-full bg-background h-1 rounded-full overflow-hidden">
+<div class="bg-[#00A884] h-full w-[5%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Illustration Placeholder -->
+<div class="pt-8 flex flex-col items-center justify-center opacity-20 select-none pointer-events-none">
+<span class="material-symbols-outlined text-6xl" data-icon="forum">forum</span>
+<p class="mt-2 text-xs uppercase tracking-widest">Fim da lista</p>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-[#00A884] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 z-[100]">
+<span class="material-symbols-outlined text-3xl font-bold" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Shell (Consistent with Shared Components) -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-[#1f2c34] shadow-[0px_-4px_12px_rgba(0,0,0,0.3)] md:hidden">
+<div class="flex flex-col items-center justify-center text-white border-t-2 border-[#00a884] py-3 flex-1 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
+<span class="font-inter label-sm uppercase tracking-wider text-[0.6875rem]">Ativos</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#8696a0] py-3 flex-1 cursor-pointer hover:bg-[#2c363d] transition-colors">
+<span class="material-symbols-outlined" data-icon="pause_circle">pause_circle</span>
+<span class="font-inter label-sm uppercase tracking-wider text-[0.6875rem]">Pausados</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#8696a0] py-3 flex-1 cursor-pointer hover:bg-[#2c363d] transition-colors">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="font-inter label-sm uppercase tracking-wider text-[0.6875rem]">Concluídos</span>
+</div>
+</footer>
+</aside>
+<!-- Background Content Overlay (Simulating WhatsApp Web behind) -->
+<div class="fixed inset-0 bg-[#0a151a] -z-10 grid grid-cols-4 gap-4 p-8 opacity-40">
+<div class="col-span-1 border-r border-outline-variant/10 space-y-4 pr-4">
+<div class="h-16 bg-surface-container rounded-lg w-full"></div>
+<div class="h-12 bg-surface-container-low rounded-lg w-full"></div>
+<div class="h-12 bg-surface-container-low rounded-lg w-full"></div>
+<div class="h-12 bg-surface-container-low rounded-lg w-full"></div>
+</div>
+<div class="col-span-3 flex flex-col gap-4">
+<div class="h-16 bg-surface-container rounded-lg w-full"></div>
+<div class="flex-1 bg-surface-container-lowest rounded-lg w-full flex items-end p-4">
+<div class="h-12 bg-surface-container w-full rounded-full"></div>
+</div>
+</div>
+</div>
+</body></html>

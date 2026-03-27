@@ -1,0 +1,21 @@
+@tailwind utilities;
+
+/* Scoped utilities to prevent WhatsApp conflicts */
+#wa-scheduler-modal {
+    font-family: 'Inter', sans-serif;
+}
+
+#wa-scheduler-modal .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+#wa-scheduler-modal .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+#wa-scheduler-modal .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+#wa-scheduler-modal .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #374045;
+    border-radius: 10px;
+}

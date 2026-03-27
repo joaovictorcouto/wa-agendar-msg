@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA Scheduler - Side Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body class="bg-surface text-on-surface antialiased h-screen flex flex-col m-0 p-0 overflow-hidden hide-scrollbar">
+    
+    <!-- TopAppBar -->
+    <header class="bg-[#008069] text-white font-inter font-bold text-sm h-[56px] shadow-sm flex items-center justify-between px-4 w-full shrink-0">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-white text-[20px]" data-icon="schedule">schedule</span>
+            <h1 class="text-[15px] font-bold text-white tracking-widest pl-1">WA Scheduler</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="btn-import-header" title="Importar / Templates" class="hover:bg-white/10 p-1 transition-colors duration-200 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+            </button>
+            <button id="btn-close-sp" title="Fechar" class="hover:bg-white/10 p-1 transition-colors duration-200 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs & Subtitle -->
+    <nav class="flex flex-col w-full bg-[#0a151a] shrink-0">
+        <div class="px-5 py-4 pt-6">
+            <h2 class="text-[20px] font-black text-[#e9edef] tracking-tight">WA Scheduler</h2>
+            <p class="text-[13px] text-[#8696a0] mt-0.5">Mensagens Programadas</p>
+        </div>
+        
+        <div class="flex border-b border-[#222E35] px-5 gap-6 mt-2">
+            <!-- Tabs -->
+            <button id="tab-ativos" class="text-white border-b-4 border-[#00a884] pb-2 font-bold text-[13px] tracking-wide flex items-center gap-1.5 transition-all duration-300">
+                <span class="material-symbols-outlined text-[15px]">play_arrow</span> Ativos
+            </button>
+            <button id="tab-pausados" class="text-[#8696a0] border-b-4 border-transparent pb-2 text-[13px] tracking-wide hover:text-[#e9edef] transition-all duration-300 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]">pause</span> Pausados
+            </button>
+            <button id="tab-concluidos" class="text-[#8696a0] border-b-4 border-transparent pb-2 text-[13px] tracking-wide hover:text-[#e9edef] transition-all duration-300 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[15px]">done_all</span> Concluídos
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Canvas (Scrollable) -->
+    <main id="flows-list" class="flex-1 overflow-y-auto px-5 py-4 space-y-3 hide-scrollbar bg-[#0a151a]">
+        <!-- Flows iterados dinamicamente -->
+    </main>
+
+    <!-- Templates Content Canvas -->
+    <main id="templates-list" class="hidden flex-1 overflow-y-auto px-5 py-4 space-y-3 hide-scrollbar bg-[#0a151a]">
+        <!-- Templates iterados dinamicamente -->
+    </main>
+
+    <!-- Floating Action Button -->
+    <button id="fab-add" class="fixed bottom-6 right-6 w-14 h-14 bg-[#00A884] hover:bg-[#00c59a] text-white rounded-full shadow-lg shadow-black/40 flex items-center justify-center transition-all duration-200 z-[100] active:scale-95">
+        <span class="material-symbols-outlined text-3xl font-medium" data-icon="add">add</span>
+    </button>
+
+    <!-- Settings Modal -->
+    <div id="modal-settings" class="hidden fixed inset-0 bg-[#0a151a] z-50 flex items-center justify-center p-4">
+        <div class="bg-surface-variant w-full max-w-sm rounded-[12px] border border-outline-variant p-5 shadow-2xl flex flex-col gap-4">
+            <h2 class="font-bold text-lg text-white flex items-center gap-2"><span class="material-symbols-outlined">settings</span> Configurações</h2>
+            <div class="space-y-3">
+                <div class="flex flex-col">
+                    <label class="text-[0.6875rem] text-tertiary uppercase font-bold mb-1 tracking-wider">Janela (Início - Fim)</label>
+                    <div class="flex gap-2">
+                        <input id="set-hora-inicio" type="time" class="bg-surface-container-highest border-none text-white p-2 rounded-lg w-full outline-none focus:ring-1 focus:ring-primary" value="08:00">
+                        <input id="set-hora-fim" type="time" class="bg-surface-container-highest border-none text-white p-2 rounded-lg w-full outline-none focus:ring-1 focus:ring-primary" value="20:00">
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-surface-container-highest p-3 rounded-lg">
+                    <div>
+                        <p class="font-bold text-sm text-white">Delay Aleatório</p>
+                        <p class="text-xs text-textSub text-tertiary">Variação de ±2s humanizada</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="set-delay-rand" type="checkbox" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-outline-variant after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container peer-checked:after:bg-white peer-checked:after:border-transparent"></div>
+                    </label>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-2">
+                <button id="btn-close-settings" class="flex-1 py-3 text-sm bg-surface-container-low hover:bg-surface-container-high rounded-lg font-bold text-white transition-colors">Fechar</button>
+                <button id="btn-save-settings" class="flex-1 py-3 text-sm bg-primary hover:bg-[#59dcb5] text-on-primary-fixed-variant font-bold rounded-lg transition-colors shadow-lg">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="modal-import" class="hidden fixed inset-0 bg-[#0a151a] z-50 flex items-center justify-center p-4">
+        <div class="bg-surface-variant w-full max-w-sm rounded-[12px] border border-outline-variant/30 p-5 shadow-2xl flex flex-col gap-4">
+            <h2 class="font-bold text-lg text-white flex items-center gap-2"><span class="material-symbols-outlined">upload_file</span> Importação em Lote</h2>
+            
+            <div class="flex flex-col gap-2">
+                <label class="text-[0.6875rem] text-tertiary uppercase font-bold tracking-wider">Passo 1: Selecionar Template</label>
+                <select id="import-template-select" class="bg-surface-container-highest border-none text-white p-2 rounded-lg w-full outline-none focus:ring-1 focus:ring-primary text-sm h-[40px]">
+                    <option value="">(Crie um template primeiro)</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-2 relative mt-1">
+                <div class="flex items-center justify-between">
+                    <label class="text-[0.6875rem] text-tertiary uppercase font-bold tracking-wider">Passo 2: Contatos</label>
+                    <button id="btn-fetch-contacts" class="text-primary text-[0.6875rem] uppercase font-bold hover:text-white transition-colors bg-surface-container-low px-2 py-1 rounded">Pegar do WhatsApp</button>
+                </div>
+                <!-- Container para Selecionar os Contatos Capturados (Checkbox List) -->
+                <div id="wa-contacts-list" class="hidden w-full h-32 bg-surface-container overflow-y-auto rounded-lg p-2 flex-col gap-1 border border-outline-variant/20 custom-scrollbar">
+                    <!-- Iterated via JS -->
+                </div>
+                <!-- Fallback manual caso a extração falhe -->
+                <textarea id="import-data" class="bg-surface-container border border-outline-variant/20 text-white p-3 rounded-lg w-full h-32 outline-none text-sm resize-none focus:ring-1 focus:ring-primary custom-scrollbar" placeholder="Ou cole: 5511999999999, João Silva&#10;5511888888888, Maria"></textarea>
+            </div>
+            
+            <div class="flex gap-2 mt-2">
+                <button id="btn-close-import" class="flex-1 py-3 text-sm bg-surface-container-low hover:bg-surface-container-high font-bold rounded-lg text-white transition-colors">Fechar</button>
+                <button id="btn-do-import" class="flex-1 py-3 text-sm bg-primary hover:bg-[#59dcb5] text-on-primary-fixed-variant font-bold rounded-lg transition-colors shadow-lg">Processar Fluxo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Builder Modal -->
+    <div id="modal-template" class="hidden fixed inset-0 bg-[#0a151a] z-50 flex items-center justify-center p-4">
+        <div class="bg-surface-variant w-full max-w-sm rounded-[12px] border border-outline-variant/30 p-5 shadow-2xl flex flex-col gap-4 max-h-[90vh]">
+            <h2 class="font-bold text-lg text-white flex items-center gap-2" id="template-modal-title"><span class="material-symbols-outlined">edit_square</span> Novo Template</h2>
+            
+            <input type="hidden" id="tpl-id">
+            <div class="flex flex-col gap-1">
+                <label class="text-[0.6875rem] text-tertiary uppercase font-bold tracking-wider">Nome do Template</label>
+                <input id="tpl-name" type="text" class="bg-surface-container-highest border-none text-white p-2 rounded-lg w-full outline-none focus:ring-1 focus:ring-primary text-sm" placeholder="Ex: Cobrança Mensal">
+            </div>
+
+            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-2" id="tpl-messages-container">
+                <!-- Message blocks -->
+            </div>
+            
+            <button id="btn-tpl-add-msg" class="text-primary text-xs uppercase font-bold hover:text-white transition-colors border border-dashed border-primary/30 py-2 rounded-lg w-full">+ Mensagem</button>
+
+            <div class="flex gap-2 mt-2">
+                <button id="btn-close-template" class="flex-1 py-3 text-sm bg-surface-container-low hover:bg-surface-container-high font-bold rounded-lg text-white transition-colors">Cancelar</button>
+                <button id="btn-save-template" class="flex-1 py-3 text-sm bg-primary hover:bg-[#59dcb5] text-on-primary-fixed-variant font-bold rounded-lg transition-colors shadow-lg">Salvar Template</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="sidepanel.js"></script>
+</body>
+</html>
